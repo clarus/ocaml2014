@@ -1,3 +1,8 @@
+*.make
+*.d
+*.pdf
+*.temp
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
