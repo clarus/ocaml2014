@@ -92,6 +92,7 @@
       \item no polymorphism
       \item no function arguments with effects
     \end{itemize}
+    No \texttt{List.iter} for example.
     \begin{block}{Effects descriptor}
       A set of atomic effects (exceptions, top-level references, input-output):
       \[
@@ -175,7 +176,7 @@
   \begin{frame}
     \frametitle{List of effects}
     \begin{itemize}
-      \item references
+      \item global references
       \item exceptions
       \item inputs/outputs (a reference to an abstract world)
       \item non-termination: using a fuel
@@ -188,9 +189,62 @@
     \begin{center}
       \includegraphics[width=4cm]{images/implementation}
     \end{center}
+    \begin{center}
+      The compiler is 3000 lines of \emph{OCaml}.
+    \end{center}
+  \end{frame}
+  \begin{frame}
+    \frametitle{Supported language fragment}
+    \begin{itemize}
+      \item pure $\lambda$-calculus kernel
+      \item mutually-recursive functions
+      \item inductive types (definition and matching)
+      \item records
+      \item abstract types
+      \item modules
+      \item parts of the \texttt{Pervasives} and \texttt{List} libraries
+    \end{itemize}
+  \end{frame}
+  \begin{frame}
+    \frametitle{Compilation passes}
+    \begin{itemize}
+      \item import the syntax tree typed by the \emph{OCaml} compiler
+      \item infer effects
+      \item do the monadic transformation
+      \item pretty-print in the \emph{Coq} syntax
+    \end{itemize}
+  \end{frame}
+  \begin{frame}
+    \frametitle{Difficulties}
+    \begin{itemize}
+      \item generate a human-like code
+      \item support real \emph{OCaml} programs
+      \item import basic libraries
+      \item support functors
+    \end{itemize}
+  \end{frame}
+  \begin{frame}
+    \frametitle{Case studies}
+    Import of slightly modified \texttt{List}, \texttt{Set} and \texttt{Map} modules:
+    \begin{center}
+      \begin{tabular}{c|cc|c}
+        Module & Lines of \emph{OCaml} & Lines of \emph{Coq} & Increase\\
+        \hline
+        List & 396 & 622 & +57\%\\
+        Set & 349 & 539 & +54\%\\
+        Map & 310 & 497 & +60\%\\
+      \end{tabular}
+    \end{center}
   \end{frame}
 
-  \section{Case studies}
-
   \section{Conclusion}
+  \begin{frame}
+    \frametitle{Conclusion}
+    \begin{itemize}
+      \item a lot of work to have a compiler working on real examples
+      \item functors are complex: should we make a new implementation sharing the AST with the compiler?
+      \item a working implementation with modules and composing monads
+      \item TODO: properly study the compilation of \emph{Coq} with effects
+    \end{itemize}
+  \end{frame}
 \end{document}
